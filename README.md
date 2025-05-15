@@ -175,5 +175,3 @@ def create_lstm_model(input_shape, num_classes):
 > **SentiAid** is committed to transforming accessibility through intelligent, inclusive technology — giving a voice to gestures and empowering the Deaf and Hard-of-Hearing community across India.
 
 ---
-
-Would you like me to help design your **research paper**, **poster**, or a **pitch deck** using this summary?
