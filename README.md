@@ -1,167 +1,179 @@
 # 🧠 SentiAid – Speech to Animated Sign Language Interpreter
 
-SentiAid is an AI-powered solution designed to bridge the communication gap between the Deaf and Hard-of-Hearing community and the rest of the world. Our system converts **spoken or textual input** into **real-time animated Indian Sign Language (ISL)** using deep learning, keypoint detection, and pose-based animation.
+**SentiAid** is an AI-powered solution designed to bridge the communication gap between the Deaf and Hard-of-Hearing (DHH) community and the hearing world. Our system converts **spoken or textual input** into **real-time animated Indian Sign Language (ISL)** using deep learning, keypoint detection, and pose-based animation.
 
-> 🌐 Built with: TensorFlow, Mediapipe, VideoMAE, LangGraph, LangChain, Transformers, IndicTrans2, LLM Agentic Frameworks
+> 🌐 **Built With**: TensorFlow, Mediapipe, VideoMAE, LangGraph, LangChain, Transformers, IndicTrans2, LLM Agentic Frameworks
 
 ---
 
 ## 🚀 Project Objective
 
-To develop a robust and scalable pipeline that:
-- Converts **speech/text to ISL**
-- Animates the signs using pose/keypoint-based avatars
-- Supports **multilingual inputs** (22 scheduled Indian languages)
-- Ensures **accessibility** for education, workplaces, and public communication
+Develop a robust, scalable, and inclusive AI pipeline that:
+
+* Converts **speech or text to ISL**
+* Animates signs using pose/keypoint-based avatars
+* Supports **22 Indian languages** (Scheduled)
+* Ensures **accessibility** in education, workplaces, and public spaces
 
 ---
 
 ## ✨ Key Features
 
-- 🎙️ **Speech to Text** using Whisper / IndicTTS
-- 📝 **Text to Gloss Conversion** with Agentic LLMs (LangGraph)
-- 🔁 **Gloss to ISL Keypoints** using masked motion templates
-- 🧍‍♂️ **ISL Animation Renderer** via Mediapipe pose keypoints and Blender/Three.js
-- 🌐 **Multilingual Support** using IndicTrans2
-- 📱 **Mobile-friendly multilingual web app**
+* 🎙️ **Speech-to-Text**: Using Whisper or IndicTTS
+* 📝 **Text-to-Gloss**: With LangGraph + Agentic LLMs
+* 🔁 **Gloss-to-ISL Poses**: Generated using masked motion templates
+* 🧍‍♂️ **Avatar Animation**: Via Mediapipe keypoints and Blender/Three.js
+* 🌐 **Multilingual Support**: Enabled by IndicTrans2
+* 📱 **Cross-Platform UI**: Accessibility-first mobile-friendly web app
 
 ---
 
-## 🧠 Architecture
+## 🧠 System Architecture
 
-
-Speech Input
-   ⬇️
-[Whisper/IndicTTS] ➡️ [Text]
-   ⬇️
-[LangGraph Agentic Flow] ➡️ [Gloss Conversion]
-   ⬇️
-[Gloss ➡️ Pose Sequence] via Transformer / LSTM
-   ⬇️
-[Masked Pose Templates + ISL Sign Mapping]
-   ⬇️
-🎥 Animated Avatar Output (Sign Language)
-
-## Dataset Details 📊
-Link to the Dataset: [INCLUDE Dataset](https://zenodo.org/records/4010759)
-
-The INCLUDE dataset, sourced from AI4Bharat, forms the foundation of our project. It consists of 4,292 videos, with 3,475 videos used for training and 817 videos for testing. Each video captures a single Indian Sign Language (ISL) sign performed by deaf students from St. Louis School for the Deaf, Adyar, Chennai.
-
+```mermaid
+graph TD
+  A[Speech Input] --> B[Whisper / IndicTTS]
+  B --> C[Text Output]
+  C --> D[LangGraph LLM Agent → Gloss]
+  D --> E[Gloss → Pose Sequence Model LSTM/Transformer]
+  E --> F[Masked Pose Templates + ISL Mapping]
+  F --> G[Animated Avatar Three.js / Blender / Mediapipe]
+```
 
 ---
 
-## 🧠 Model Architecture
+## 📊 Dataset: INCLUDE
 
-SentiAid leverages two powerful AI models for robust real-time Sign Language Detection:
+**[INCLUDE Dataset – Zenodo](https://zenodo.org/records/4010759)**
+Provided by AI4Bharat, this dataset contains 4,292 videos of ISL signs:
 
-### 1. LSTM-based Model 📈
-Utilizes Mediapipe-extracted keypoints to model dynamic hand and body movements over time.
-
-- **TimeDistributed Layers**: Extract spatial relationships from each frame.
-- **LSTM Layers**: Capture temporal patterns across frames for gesture sequence classification.
-
-### 2. Transformer-based Model 🔄
-Delivers high performance through extensive hyperparameter tuning and modern training strategies.
-
-- **Training Techniques**:
-  - **Warmup Scheduler**: Gradual learning rate increase to stabilize training.
-  - **AdamW Optimizer**: Improved version of Adam for better generalization.
-  - **ReduceLROnPlateau**: Dynamic learning rate adjustment.
-  - **Finetuned VideoMAE**: Adapted from [VideoMAE](https://arxiv.org/abs/2203.12602) with head-only fine-tuning for optimal efficiency.
+* **Training Set**: 3,475 videos
+* **Testing Set**: 817 videos
+* Each video captures a single ISL sign, performed by deaf students from St. Louis School for the Deaf, Adyar, Chennai.
 
 ---
 
-## 🎯 Solution Approach
+## 🔍 Model Architectures
 
-SentiAid tackles communication barriers through a dual-mode pipeline:
+### 1. **LSTM-Based Model** (Dynamic Gesture Learning)
 
-### 1. Sign Language ➡️ Text
-- **Input**: Real-time sign language video.
-- **Pipeline**:
-  - Mediapipe → Keypoint extraction.
-  - LSTM/Transformer → Sign Classification.
-  - Agentic LangChain Flow → Text generation.
+* **Input**: Mediapipe-extracted pose keypoints
+* **Architecture**:
 
-### 2. Text ➡️ Sign Language
-- **Input**: Typed or spoken natural language.
-- **Pipeline**:
-  - Text → Gloss conversion.
-  - Generate masked keypoint-based animations.
-  - Output: Realistic ISL sign language videos.
+  * `TimeDistributed(Dense)` to extract spatial patterns
+  * `LSTM` layers to capture temporal gesture transitions
+* **Use Case**: Classifying ISL signs from real-time keypoints
 
----
+### 2. **Transformer-Based Model** (Context-Aware)
 
-## 📋 Action Plans
+* **Backbone**: Adapted from [VideoMAE](https://arxiv.org/abs/2203.12602)
+* **Features**:
 
-1. **Pose-to-Text Model**:
-   - Build using Mediapipe keypoints + LangGraph for gloss prediction.
-2. **Custom Transformer Evaluation**:
-   - Compare accuracy, speed, and adaptability on Indian Sign Language datasets.
-3. **Multilingual App**:
-   - Launch a cross-platform app for real-time ISL translation with accessibility-first UX.
+  * Warmup Scheduler for stable convergence
+  * `AdamW` optimizer for generalization
+  * `ReduceLROnPlateau` for dynamic learning rates
+  * Finetuning on temporal gesture datasets
 
 ---
 
-## ✅ Progress So Far
+## 🎯 Dual-Mode Solution Approach
 
-- [x] LSTM model for ISL recognition
-- [x] Transformer-based custom encoder for dynamic signs
-- [x] Full Indian Sign Language dataset tested on Transformer model
-- [x] Agentic LangChain implementation for Pose-to-Text
-- [x] Multilingual App built with UI optimized for accessibility
-- [x] https://www.sentiaid.co.in/
+### 1. **Sign ➡️ Text**
+
+* **Pipeline**:
+
+  * Video input → Pose extraction (Mediapipe)
+  * Pose → Classifier (LSTM/Transformer)
+  * Classification → Text (via LangChain Agent)
+
+### 2. **Text ➡️ Sign**
+
+* **Pipeline**:
+
+  * Natural Language Input → Gloss (LLM Agent)
+  * Gloss → Pose Templates (masked sequences)
+  * Output: 3D animated ISL avatar
 
 ---
-## 🚀 Future Work
 
-While SentiAid has made significant progress in both Sign-to-Text and Text-to-Sign pipelines, the next phase will focus on enhancing performance, scalability, and usability. Here’s what lies ahead:
+## ✅ Current Progress
 
-### 🧠 Model Improvements
-- **Benchmark and optimize LSTM model**:
-  - Finalize evaluation metrics (precision, recall, F1-score) for LSTM results.
-  - Compare with Transformer results on unseen dynamic signs.
-- **Hybrid Model Fusion**:
-  - Explore combining LSTM (for local temporal features) with Transformers (for global context) for improved accuracy.
-- **Real-time Latency Optimization**:
-  - Reduce inference time using quantization, pruning, and TensorRT/ONNX conversion.
+* ✅ LSTM model for ISL recognition
+* ✅ Transformer encoder tested on INCLUDE dataset
+* ✅ Agentic LangChain pipeline integrated
+* ✅ Gloss-to-Pose pipeline functioning
+* ✅ Accessibility-focused multilingual web app live: [https://www.sentiaid.co.in/](https://www.sentiaid.co.in/)
 
-### 🧾 Dataset Expansion & Diversity
-- **Fine-tune on domain-specific ISL phrases** (e.g., banking, healthcare).
-- **Augment dataset with regional sign variations** for better generalization.
-- **Add multimodal data** (facial expressions, eye gaze) to improve emotion/context recognition.
+---
 
-### 📱 App Features & Accessibility
-- **Integrate Speech-to-Text + Text-to-Sign pipeline in mobile app**.
-- **Offline Mode**:
-  - Add support for core sign recognition features without internet dependency.
-- **Real-time Avatar Animation**:
-  - Implement animated 3D avatar using Blender/WebGL to visualize generated sign language.
+## 🔭 Future Roadmap
 
-### 🕸️ API & Platform Integration
-- **Develop RESTful API for easy third-party integration**.
-- **Plug-and-play SDK** for EdTech and HR tools to use sign translation modules.
+### 🔧 Model Optimization
 
-### 🧑‍🏫 User Feedback & Community Testing
-- **Beta testing with DHH users** to collect real-world feedback.
-- **Accessibility audit** to meet WCAG 2.1 AA standards.
+* Benchmark LSTM and Transformer on dynamic sign sequences
+* Develop a **hybrid model**: Local (LSTM) + Global (Transformer)
+* Apply quantization and ONNX conversion for **real-time inference**
 
-### 📊 Research & Publication
-- **Publish comparative study** between LSTM and Transformer models.
-- **Submit paper** to conferences like ACL, COLING, or EMNLP under AI for Accessibility category.
+### 🧾 Dataset Expansion
 
-> The journey ahead is to move from working prototypes to production-ready, scalable tools that redefine accessibility for millions.
+* Add ISL phrases from **banking, health, education**
+* Include **regional ISL dialects**
+* Capture **facial cues, expressions, and gaze data**
 
+### 📱 Mobile App & Accessibility
+
+* Merge Speech → Text → Sign flow in app
+* Enable **offline functionality**
+* Real-time 3D avatar rendering (WebGL/Blender pipeline)
+
+### 🛠️ API / SDK Development
+
+* Public **REST API** for ISL translation
+* **Plug-and-play SDKs** for EdTech & HR applications
+
+### 📋 Research & Publishing
+
+* Submit papers to **ACL, COLING, EMNLP**
+* Comparative study: LSTM vs Transformer for gesture decoding
+
+---
 
 ## 🔗 Key Resources
 
-- 🔬 [ISL Dataset](https://zenodo.org/records/4010759)
-- 📘 [VideoMAE on HuggingFace](https://huggingface.co/MCG-NJU/videomae-base)
-- 🔗 [AI4Bharat NLP & Speech Models](https://huggingface.co/ai4bharat)
-- 🔧 [LangChain Docs](https://python.langchain.com/docs/get_started/introduction)
-- 🧬 [LangGraph for Agentic Workflows](https://python.langchain.com/docs/langgraph/)
-- 🧏 [History of Indian Sign Language](https://islrtc.nic.in/history-0)
+* 📊 [INCLUDE Dataset (Zenodo)](https://zenodo.org/records/4010759)
+* 🧠 [VideoMAE (HuggingFace)](https://huggingface.co/MCG-NJU/videomae-base)
+* 🇮🇳 [AI4Bharat NLP Models](https://huggingface.co/ai4bharat)
+* 🧬 [LangChain Documentation](https://python.langchain.com/docs/)
+* 🤖 [LangGraph Agentic Workflows](https://python.langchain.com/docs/langgraph/)
+* 🧏 [ISLRTC – History of Indian Sign Language](https://islrtc.nic.in/history-0)
 
 ---
 
-> **SentiAid** is dedicated to creating inclusive technology — empowering the DHH community with intelligent, real-time communication tools.
+## 💡 Example Code: LSTM Pose Classifier (Simplified)
 
+```python
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import TimeDistributed, Dense, LSTM, Dropout
+
+def create_lstm_model(input_shape, num_classes):
+    model = Sequential()
+    model.add(TimeDistributed(Dense(128), input_shape=input_shape))
+    model.add(Dropout(0.3))
+    model.add(LSTM(64, return_sequences=True))
+    model.add(LSTM(32))
+    model.add(Dense(64, activation='relu'))
+    model.add(Dense(num_classes, activation='softmax'))
+    return model
+
+# Example usage:
+# input_shape = (sequence_length, num_keypoints)
+# num_classes = total number of ISL signs in your dataset
+```
+
+---
+
+> **SentiAid** is committed to transforming accessibility through intelligent, inclusive technology — giving a voice to gestures and empowering the Deaf and Hard-of-Hearing community across India.
+
+---
+
+Would you like me to help design your **research paper**, **poster**, or a **pitch deck** using this summary?
