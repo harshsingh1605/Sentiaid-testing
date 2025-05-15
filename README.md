@@ -29,7 +29,7 @@ To develop a robust and scalable pipeline that:
 
 ## 🧠 Architecture
 
-```text
+
 Speech Input
    ⬇️
 [Whisper/IndicTTS] ➡️ [Text]
@@ -47,6 +47,8 @@ Link to the Dataset: [INCLUDE Dataset](https://zenodo.org/records/4010759)
 
 The INCLUDE dataset, sourced from AI4Bharat, forms the foundation of our project. It consists of 4,292 videos, with 3,475 videos used for training and 817 videos for testing. Each video captures a single Indian Sign Language (ISL) sign performed by deaf students from St. Louis School for the Deaf, Adyar, Chennai.
 
+
+---
 
 ## 🧠 Model Architecture
 
