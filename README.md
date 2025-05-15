@@ -120,12 +120,6 @@ Provided by AI4Bharat, this dataset contains 4,292 videos of ISL signs:
 * Include **regional ISL dialects**
 * Capture **facial cues, expressions, and gaze data**
 
-### 📱 Mobile App & Accessibility
-
-* Merge Speech → Text → Sign flow in app
-* Enable **offline functionality**
-* Real-time 3D avatar rendering (WebGL/Blender pipeline)
-
 ### 🛠️ API / SDK Development
 
 * Public **REST API** for ISL translation
